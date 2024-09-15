@@ -48,7 +48,7 @@ class BooksController extends Controller
             $book->save();
             return response()->json([
                 'message'=> 'Book updated.'
-            ], 200);
+            ], status: 200);
         }else{
             return response()->json([
                 'error'=>'Book not found.'
@@ -56,20 +56,20 @@ class BooksController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function delete($id){
 
-        if(Books::where('id', $id)->exists()){
+        if(Books::where(column: 'id', operator: $id)->exists()){
 
-            $book = Books::find($id);
+            $book = Books::find(id: $id);
             $book->delete();
 
-            return response()->json([
+            return response()->json(data: [
                 'message'=>'records deleted.'
-            ], 202);
+            ], status: 202);
         }else{
-            return response()->json([
+            return response()->json(data: [
                 'error'=>'Book not found.'
-            ], 404);
+            ], status: 404);
         }
 
     }
